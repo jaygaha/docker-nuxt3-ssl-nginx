@@ -1,0 +1,41 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+/npm-debug.log*
+/yarn-error.log*
+/lerna-debug.log*
+/.sass-cache
+/.eslintcache
+/.cache
+/.grunt
+
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Optional npm cache directory
+.npm
+
+.docker/nginx/certs/
+.docker1
+.docker2
+docker-compose1.yml
+docker-compose2.yml

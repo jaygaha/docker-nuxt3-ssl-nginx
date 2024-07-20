@@ -1,0 +1,29 @@
+services:
+  nuxt:
+    build:
+      context: .
+      dockerfile: ${DOCKER_FILE:-./.docker/node/Dockerfile}
+      args:
+        - WORK_DIR=${FRONTEND_DIR}
+        - NUXT_PORT=${NUXT_PORT}
+        - NODE_ENV=${NODE_ENV}
+    container_name: nuxt-js
+    volumes:
+      - ".:${FRONTEND_DIR}"
+      - "/${FRONTEND_DIR}/node_modules"
+
+  nginx:
+    image: nginx:stable-alpine3.19
+    container_name: nuxt-server
+    ports:
+      - "${NGINX_FORWARD_PORT:-80}:${NGINX_PORT:-80}"
+      - "${NGINX_FORWARD_SPORT:-80}:${NGINX_SPORT:-80}"
+    volumes:
+      - "${NGINX_CONFIG}:/etc/nginx/conf.d/default.conf"
+      - "./.docker/nginx/certs:/etc/nginx/ssl"
+    depends_on:
+      - nuxt
+
+networks:
+  default:
+    name: laure-network
